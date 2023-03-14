@@ -1,24 +1,49 @@
-import logo from './logo.svg';
 import './App.css';
+import { Fragment, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import MyNavbar from './Components/MyNavbar';
+import Main from './Components/Main';
+import Cart from './Components/Cart';
+import Ads from './Components/Ads';
+
+
+//BOOTSTRAP INSTALLED
 
 function App() {
+
+  const [cart, setCart]= useState([]);
+
+  const handleClick=(item)=>{
+    let isPresent = false;
+    cart.map((product)=>{
+      if(item.id===product.id)
+      isPresent=true;
+    })
+    if (isPresent)
+    return;
+    setCart([...cart, item])
+  }
+
+  const handleChange=(item, d)=>{
+    let ind=-1;
+    cart.map((data, index)=>{
+      if(data.id===item.id)
+      ind=index
+    });
+    const tempArr=cart;
+    tempArr[ind].amount +=d;
+    if (tempArr[ind].amount=== 0)
+      tempArr[ind].amount=1;
+    setCart([...tempArr])
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <MyNavbar size={cart.length} />
+      <Ads />
+      <Main handleClick={handleClick}/>
+      <Cart size={cart.length} cart={cart} setCart={setCart} handleChange={handleChange} />
+    </Fragment>
   );
 }
 
