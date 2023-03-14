@@ -5,6 +5,7 @@ import MyNavbar from './Components/MyNavbar';
 import Main from './Components/Main';
 import Cart from './Components/Cart';
 import Ads from './Components/Ads';
+import Footer from './Components/Footer';
 
 
 //BOOTSTRAP INSTALLED
@@ -43,6 +44,7 @@ function App() {
       <Ads />
       <Main handleClick={handleClick}/>
       <Cart size={cart.length} cart={cart} setCart={setCart} handleChange={handleChange} />
+      <Footer />
     </Fragment>
   );
 }
